@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('parciales/head.html') %>
+</head>
+<body class="bg-dark">
+    <main class="container">
+        <div class="row vh-100 d-flex align-items-center justify-content-center">
+            <form class="d-flex w-50 row form-control mx-4" action="/registro" method="post">
+                <h2 class="text-center p-4">Registrar cuenta</h2>
+                <input type="text" name="nombreUsuario" placeholder="Usuario..." class="form-control form-control-lg">
+                <input type="password" name="contraseña" placeholder="Contraseña..." class="form-control form-control-lg mt-4 mb-4">
+                <select name="rol" class="form-control-lg form-control mb-4">
+                    <option value="alternador">Alternador</option>
+                    <option value="gestionador">Gestionador</option>
+                    <option value="admin">Administrador</option>
+                </select>
+                <button type="submit" class="btn btn-success mb-2">Registrar</button>
+                <% if(typeof validaciones != 'undefined') { %>
+                    <% validaciones.forEach((validacion) => {  %> 
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong><%= validacion.msg %></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% }) %>
+                  <% } %>
+
+                  <% if(typeof usuarioExiste != 'undefined') { %>
+                    <% if(usuarioExiste == true) { %>
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <strong>Esta cuenta ya existe.</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <% } %>
+                <% } %>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

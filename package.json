@@ -1,0 +1,29 @@
+{
+  "name": "proyecto-timbre",
+  "version": "1.0.0",
+  "description": "Proyecto escolar para el timbre que indica el paso de hora en la escuela",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --env-file=.env --watch src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Exaedro/proyecto-timbre.git"
+  },
+  "type": "module",
+  "author": "Exaedro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Exaedro/proyecto-timbre/issues"
+  },
+  "homepage": "https://github.com/Exaedro/proyecto-timbre#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.5",
+    "morgan": "^1.10.0"
+  }
+}

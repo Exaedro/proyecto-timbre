@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('parciales/head.html') %>
+</head>
+<body class="bg-dark">
+    <main class="container">
+        <div class="row vh-100 d-flex align-items-center justify-content-center">
+            <form class="d-flex w-50 row form-control mx-4" action="/login" method="post">
+                <h2 class="text-center p-4">Iniciar Sesion</h2>
+                <input type="text" name="nombreUsuario" placeholder="Usuario..." class="form-control form-control-lg">
+                <input type="password" name="contraseña" placeholder="Contraseña..." class="form-control form-control-lg mt-4 mb-4">
+                <button type="submit" class="btn btn-success mb-2">Iniciar Sesion</button>
+                <% if(typeof validaciones != 'undefined') { %>
+                    <% validaciones.forEach((validacion) => {  %> 
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong><%= validacion.msg %></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% }) %>
+                  <% } %>
+
+                  <% if(typeof usuarioExiste != 'undefined') { %>
+                    <% if(usuarioExiste == false) { %>
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <strong>Esta cuenta no existe.</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <% } %>
+                <% } %>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
