@@ -15,12 +15,6 @@ panelRutas.get("/panel", [esAdmin], (req, res) => {
 
 // Tabla de usuarios
 panelRutas.get("/panel/usuarios", [esAdmin], async (req, res) => {
-    
-    // Si una cuenta fue creada se manda esta variable como true
-    let creado = false
-    if(req.params.creado == true) creado = true
-
-    // Sigue pidiendo usuarios normalmente
 	const { nombreUsuario, rol } = req.session;
 	const usuarios = await Usuario.find()
 
