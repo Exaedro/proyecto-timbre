@@ -2,6 +2,7 @@ import { Router } from "express";
 export const loginRutas = new Router();
 
 import { conectarDB } from "../utils/database.js";
+
 import Usuario from "../modelos/usuario.js";
 import { esAdmin } from "../middlewares/auth.js";
 
@@ -15,6 +16,7 @@ loginRutas.get("/registro", esAdmin, (req, res) => {
 	res.render("registro");
 });
 
+// Login
 loginRutas.post(
 	"/login",
 	[
@@ -48,6 +50,7 @@ loginRutas.post(
 	}
 );
 
+// Registro
 loginRutas.post(
 	"/registro",
 	[
@@ -81,5 +84,7 @@ loginRutas.post(
 		usuario.rol = rol;
 
 		await usuario.save();
+
+		res.redirect(`/panel/usuarios`)
 	}
 );

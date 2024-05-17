@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../parciales/head.html') %>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-center align-items-center w-100 vh-100">
+                <form class="card" action="/usuario/<%- usuarioId %>/editar" method="post">
+                    <div class="card-header">
+                        <h3 class="text-center">Editar cuenta</h3>
+                    </div>
+                    <div class="card-body">
+                        <label class="mb-1">Nuevo nombre</label>
+                        <input class="form-control form-control-lg mb-3" type="text" name="nombreUsuario" value="<%- nombreUsuario %>">
+                        <label class="mb-1">Nuevo rol</label>
+                        <select class="form-control form-control-lg mb-4" name="rol" aria-valuenow="<%- rol %>">
+                            <option value="alternador">Alternador</option>
+                            <option value="gestionador">Gestionador</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                        <button class="btn btn-success w-100 mb-3" type="submit">Editar</button>
+                        <a href="/panel/usuarios" class="btn btn-primary w-100">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

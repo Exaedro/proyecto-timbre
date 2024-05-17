@@ -26,11 +26,15 @@ app.use(
 // Rutas
 import { loginRutas } from "./rutas/login.routes.js";
 import { indexRutas } from "./rutas/index.routes.js";
+import { panelRutas } from "./rutas/panel.routes.js";
+
 app.use(loginRutas);
 app.use(indexRutas);
+app.use(panelRutas)
 
 // Estatico
 app.use(express.static(path.join(process.cwd(), 'src/public')))
+app.use('/panel', express.static(path.join(process.cwd(), 'src/public')))
 
 app.listen(puerto, () => {
   console.log("Servidor en marcha.");

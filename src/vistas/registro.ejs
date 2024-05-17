@@ -3,7 +3,7 @@
 <head>
     <%- include('parciales/head.html') %>
 </head>
-<body class="bg-dark">
+<body>
     <main class="container">
         <div class="row vh-100 d-flex align-items-center justify-content-center">
             <form class="d-flex w-50 row form-control mx-4" action="/registro" method="post">
@@ -30,6 +30,23 @@
                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
                             <strong>Esta cuenta ya existe.</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <% } %>
+                <% } %>
+
+                <% if(typeof usuarioCreado != 'undefined') { %>
+                    <% if(usuarioCreado == true) { %>
+                        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                            <div id="liveToast" class="toast show fade" role="alert" aria-live="assertive" aria-atomic="true">
+                              <div class="toast-header">
+                                <img src="..." class="rounded me-2" alt="...">
+                                <strong class="me-auto">Exito.</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                            Cuenta creada correctamente.
+                            </div>
+                        </div>
                         </div>
                     <% } %>
                 <% } %>
