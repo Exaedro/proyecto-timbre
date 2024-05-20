@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../parciales/head.html') %>
+    <link rel="stylesheet" href="css/formularioHorario.css">
+</head>
+<body>
+    <main class="container">
+        <div class="row vh-100 d-flex align-items-center justify-content-center">
+            <form class="d-flex w-50 row form-control mx-4" action="/panel/horarios/crear" method="post">
+                <div>
+                    <h2 class="text-center p-4">Agregar horario</h2>
+                    <label class="form-label">Dia</label>
+                    <input class="form-control form-control-lg mb-4" type="date" name="fecha">
+                    <label class="form-label">Modo de funcionamiento</label>
+                    <select name="modo" id="selectModo" class="form-control form-control-lg mb-4">
+                        <option value=true>Activado</option>
+                        <option value=false>Desactivado</option>
+                    </select>
+                    <div id="encendido" class="show">
+                        <label class="form-label">Hora</label>
+                        <input class="form-control form-control-lg mb-4" type="time" name="hora">
+                    </div>
+                    <div id="apagado" class="hidden">
+                        <label class="form-label">Hora inicial</label>
+                        <input class="form-control form-control-lg mb-4" type="time" name="horaInicial">
+                        <label class="form-label">Hora final</label>
+                        <input class="form-control form-control-lg mb-4" type="time" name="horaFinal">
+                    </div>
+                    <button type="submit" class="btn btn-success mb-2">Agregar</button>
+                    <a href="/panel" class="btn btn-danger mb-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="js/formularioHorario.js"></script>
+</body>
+</html>

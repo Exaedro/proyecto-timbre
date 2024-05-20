@@ -1,12 +1,17 @@
 import { Router } from "express";
 export const loginRutas = new Router();
 
-import { conectarDB } from "../utils/database.js";
+// Librerias
+import { body } from "express-validator";
 
-import Usuario from "../modelos/usuario.js";
+// Middlewares y base de datos
 import { esAdmin } from "../middlewares/auth.js";
 
-import { body, validationResult } from "express-validator";
+// Utils
+import { validarFormulario } from "../utils/validarFormulario.js";
+
+// Controladores
+import UsuarioControlador from "../controladores/usuarioControlador.js";
 
 loginRutas.get("/login", (req, res) => {
 	res.render("login");
@@ -15,6 +20,15 @@ loginRutas.get("/login", (req, res) => {
 loginRutas.get("/registro", esAdmin, (req, res) => {
 	res.render("registro");
 });
+
+loginRutas.get("/logout", (req, res) => {
+	if(!req.session.nombreUsuario) return res.redirect('/')
+
+	req.session.nombreUsuario = ""
+	req.session.rol = ""
+
+	res.redirect('/')
+})
 
 // Login
 loginRutas.post(
@@ -28,25 +42,8 @@ loginRutas.post(
 			.isLength({ min: 1, max: 32 }),
 	],
 	async (req, res) => {
-		/* Validacion del formulario*/
-		const errores = validationResult(req);
-		if (!errores.isEmpty()) {
-			const valores = req.body;
-			const validaciones = errores.array();
-			return res.render("login", { validaciones, valores });
-		}
-    /* --- */
-
-		const { nombreUsuario } = req.body;
-
-		const usuario = await Usuario.findOne({ nombreUsuario });
-
-		if (!usuario) return res.render("login", { usuarioExiste: false });
-
-		req.session.nombreUsuario = nombreUsuario;
-		req.session.rol = usuario.rol;
-
-		res.redirect("/");
+		validarFormulario("login", req, res);
+		UsuarioControlador.iniciarSesion(req, res);
 	}
 );
 
@@ -62,29 +59,7 @@ loginRutas.post(
 			.isLength({ min: 1, max: 32 }),
 	],
 	async (req, res) => {
-		/* Validacion del formulario*/
-		const errores = validationResult(req);
-		if (!errores.isEmpty()) {
-			const valores = req.body;
-			const validaciones = errores.array();
-			return res.render("registro", { validaciones, valores });
-		}
-    /* --- */
-
-		const { nombreUsuario, contraseña, rol } = req.body;
-
-		const usuarioExiste = await Usuario.findOne({ nombreUsuario });
-		if (usuarioExiste)
-			return res.render("registro", { usuarioExiste: true });
-
-		const usuario = new Usuario();
-
-		usuario.nombreUsuario = nombreUsuario;
-		usuario.contraseña = contraseña;
-		usuario.rol = rol;
-
-		await usuario.save();
-
-		res.redirect(`/panel/usuarios`)
+		validarFormulario("registro", req, res);
+		UsuarioControlador.registrarUsuario(req, res);
 	}
 );

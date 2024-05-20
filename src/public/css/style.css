@@ -1,0 +1,21 @@
+.horarioContainer {
+    gap: 10px;
+}
+
+.fecha {
+    font-weight: 700;
+}
+
+.horarioContainer .borrar {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 20px;
+}
+
+.horarioContainer .editar {
+    position: absolute;
+    right: 50px;
+    bottom: 10px;
+    font-size: 20px;
+}

@@ -1,69 +1,36 @@
 import { Router } from 'express'
 export const panelRutas = new Router()
 
-import { esAdmin, esGestionador } from "../middlewares/auth.js";
-import Usuario from "../modelos/usuario.js";
+import { esAdmin, esAdminGestionador } from "../middlewares/auth.js";
 
-panelRutas.get("/panel", [esAdmin], (req, res) => {
-	const { nombreUsuario, rol } = req.session;
+import PanelControlador from '../controladores/panelControlador.js';
+import HorarioControlador from '../controladores/horarioControlador.js'
 
-	res.render("administrador/panel", { nombreUsuario, rol });
+import { numeroParaMes } from '../utils/convertidorMeses.js'
+
+// Panel
+panelRutas.get("/panel", [esAdminGestionador], (req, res) => {
+	HorarioControlador.obtenerHorarios(req, res)
 });
 
 
-/* Usuarios */
 
 // Tabla de usuarios
-panelRutas.get("/panel/usuarios", [esAdmin], async (req, res) => {
-	const { nombreUsuario, rol } = req.session;
-	const usuarios = await Usuario.find()
-
-	res.render("administrador/usuarios", { nombreUsuario, rol, usuarios, creado });
-})
-
-
+panelRutas.get("/panel/usuarios", [esAdmin], async (req, res) => { PanelControlador.tablaUsuarios(req, res) })
 
 // Eliminar usuario
-panelRutas.get("/panel/usuarios/:id/eliminar", [esAdmin], async (req, res) => {
-    const { id } = req.params
-    const usuario = await Usuario.findById(id)
-
-    res.render('administrador/confirmacionEliminarCuenta', { usuario })
-})
-
-panelRutas.post("/usuario/:id/eliminar", [esAdmin], async (req, res) => {
-    const { id } = req.params
-    const usuario = await Usuario.findById(id)
-
-    try {
-        await usuario.deleteOne()
-        res.redirect("/panel/usuarios")
-    } catch(err) {
-        res.render("administrador/usuarios", { errorEliminarCuenta: true })
-    }
-})
-
-
+panelRutas.get("/panel/usuarios/:id/eliminar", [esAdmin], async (req, res) => { PanelControlador.confirmarEliminarUsuario(req, res) })
+panelRutas.post("/usuario/:id/eliminar", [esAdmin], async (req, res) => { PanelControlador.eliminarUsuario(req, res) })
 
 // Editar usuario
-panelRutas.get("/panel/usuarios/:id/editar", [esAdmin], async (req, res) => {
-    const { id } = req.params
+panelRutas.get("/panel/usuarios/:id/editar", [esAdmin], async (req, res) => { PanelControlador.formularioEditarUsuario(req, res) })
+panelRutas.post("/usuario/:id/editar", [esAdmin], async (req, res) => { PanelControlador.editarUsuario(req, res) })
 
-    const { nombreUsuario, rol, _id } = await Usuario.findById(id)
 
-    res.render('administrador/editarUsuario', { nombreUsuario, rol, usuarioId: _id })
+
+// Agregar horario
+panelRutas.get('/panel/horarios/crear', (req, res) => {
+	
+	res.render('administrador/agregarHorario')
 })
-
-panelRutas.post("/usuario/:id/editar", [esAdmin], async (req, res) => {
-    const { id } = req.params
-    const { nombreUsuario, rol } = req.body
-
-    try {
-        await Usuario.findOneAndUpdate({ _id: id }, { nombreUsuario, rol })
-        res.redirect("/panel/usuarios")
-    } catch(err) {
-        res.redirect("/")
-    }
-})
-
-/* Termina usuarios */
+panelRutas.post('/panel/horarios/crear', (req, res) => { HorarioControlador.crearHorario(req, res) })

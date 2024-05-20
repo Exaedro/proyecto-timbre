@@ -1,6 +1,8 @@
 import express from "express";
 import session from "express-session";
 
+import { conectarDB } from "./utils/database.js";
+
 import morgan from "morgan";
 import path from "node:path";
 
@@ -35,6 +37,7 @@ app.use(panelRutas)
 // Estatico
 app.use(express.static(path.join(process.cwd(), 'src/public')))
 app.use('/panel', express.static(path.join(process.cwd(), 'src/public')))
+app.use('/panel/horarios', express.static(path.join(process.cwd(), 'src/public')))
 
 app.listen(puerto, () => {
   console.log("Servidor en marcha.");
