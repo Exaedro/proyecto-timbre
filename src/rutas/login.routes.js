@@ -17,7 +17,7 @@ loginRutas.get("/login", (req, res) => {
 	res.render("login");
 });
 
-loginRutas.get("/registro", (req, res) => {
+loginRutas.get("/registro", esAdmin, (req, res) => {
 	res.render("registro");
 });
 
@@ -57,8 +57,7 @@ loginRutas.post(
 		body("contraseña", "Contraseña invalida.")
 			.exists()
 			.isLength({ min: 1, max: 32 }),
-	],
-	async (req, res) => {
+	], esAdmin, async (req, res) => {
 		validarFormulario("registro", req, res);
 		UsuarioControlador.registrarUsuario(req, res);
 	}
