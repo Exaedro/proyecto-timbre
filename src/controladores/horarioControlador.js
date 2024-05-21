@@ -38,4 +38,11 @@ export default class HorarioControlador {
 
         res.redirect('/panel')
     }
+
+    static async eliminarHorario(req, res) {
+        const { id } = req.params
+
+        await HorarioModelo.eliminarHorario(id)
+        res.redirect('/panel')
+    }
 }

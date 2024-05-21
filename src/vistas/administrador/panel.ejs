@@ -69,7 +69,7 @@
                                                         <h5 class="fecha"><%- horario.fecha %></h5>
                                                         <p>Hora: <%- horario.partes.hora %>:<%- horario.partes.minuto %></p>
                                                         <p>Modo: <span class="badge bg-success text-white">Encendido</span></p>
-                                                        <a href="#">
+                                                        <a data-target="#modal<%- horario._id %>" data-toggle="modal" href="#">
                                                             <i class="bi bi-trash borrar"></i>
                                                         </a>
                                                         <a href="#">
@@ -84,7 +84,7 @@
                                                         <p>Hora inicial: <%- horario.partes.hora %>:<%- horario.partes.minuto %></p>
                                                         <p>Hora final: <%- horario.parteFinal.hora %>:<%- horario.parteFinal.minuto %></p>
                                                         <p>Modo: <span class="badge bg-danger text-white">Apagado</span></p>
-                                                        <a href="#">
+                                                        <a data-target="#modal<%- horario._id %>" data-toggle="modal" href="#">
                                                             <i class="bi bi-trash borrar"></i>
                                                         </a>
                                                         <a href="#">
@@ -105,6 +105,28 @@
         </div>
     </div>
 
+    <!-- Confirmaciones -->
+    <% horarios.forEach(horario => { %>
+        <div class="modal fade" id="modal<%- horario._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <form action="/panel/horarios/<%- horario._id %>/eliminar" method="POST">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">¿Seguro que querés eliminarlo?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" type="submit">Borrar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <% }) %>
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

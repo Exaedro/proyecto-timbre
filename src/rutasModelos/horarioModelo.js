@@ -37,4 +37,8 @@ export default class HorarioModelo {
 
         await horario.save()
     }
+
+    static async eliminarHorario(id) {
+        await Horario.findOneAndDelete({ _id: id })
+    }
 }

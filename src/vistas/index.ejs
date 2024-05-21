@@ -4,18 +4,26 @@
     <%- include('parciales/head.html') %>
 </head>
 <body>
-    <a href="/login">Login</a>
-    <a href="/registro">Registro</a>
-    <a href="/panel" class="btn btn-primary">Panel de administrador</a>
-    <p>Estas logeado como <%- rol %> con <%- nombreUsuario %></p>
-    <a href="/panel/horarios/crear" class="btn btn-success m-4">Agregar horario</a>
     <div class="container">
-        <div class="row">
-            <div class="vh-100 w-100 justify-content-center align-items-center">
+        <div class="row vh-100 justify-content-center align-items-center">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body d-flex flex-column">
+                <a href="/panel" class="btn btn-primary mb-4">Panel de administrador</a>
+                <a href="/panel/horarios/crear" class="btn btn-success mb-4">Agregar horario</a>
+                <a href="/registro" class="btn btn-danger mb-4">Registro</a>
+                <a href="/login" class="btn btn-warning mb-4">Login</a> 
                 <div id="contador"></div>
+                <% if(nombreUsuario != undefined) { %>
+                    <p>Estas logeado como <%- rol %> con <%- nombreUsuario %></p>
+                <% } else { %>
+                    <p>No estas logeado.</p>
+                <% } %>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
     <script>
         const getRemainTime = deadline => {

@@ -5,52 +5,69 @@
 </head>
 <body>
     <main class="container">
-        <div class="row vh-100 d-flex align-items-center justify-content-center">
-            <form class="d-flex w-50 row form-control mx-4" action="/registro" method="post">
-                <h2 class="text-center p-4">Registrar cuenta</h2>
-                <input type="text" name="nombreUsuario" placeholder="Usuario..." class="form-control form-control-lg">
-                <input type="password" name="contraseña" placeholder="Contraseña..." class="form-control form-control-lg mt-4 mb-4">
-                <select name="rol" class="form-control-lg form-control mb-4">
-                    <option value="alternador">Alternador</option>
-                    <option value="gestionador">Gestionador</option>
-                    <option value="admin">Administrador</option>
-                </select>
-                <button type="submit" class="btn btn-success mb-2">Registrar</button>
-                <% if(typeof validaciones != 'undefined') { %>
-                    <% validaciones.forEach((validacion) => {  %> 
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong><%= validacion.msg %></strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="row vh-100 align-items-center justify-content-center">
+            <div class="col-md-6">
+                <form action="/registro" method="post"></form>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="text-center p-4">Registrar cuenta</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-floating">
+                                <input type="text" id="inputFloat" name="nombreUsuario" placeholder="..." class="form-control form-control-lg">
+                                <label for="inputFloat">Nombre de usuario</label>                            
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" id="inputFloat02" name="contraseña" placeholder="Contraseña..." class="form-control form-control-lg mt-4 mb-4">
+                                <label for="inputFloat02">Contraseña</label>
+                            </div>
+                            <div class="form-floating">
+                                <select name="rol" id="inputFloat03" class="form-control-lg form-control mb-4">
+                                    <option value="alternador">Alternador</option>
+                                    <option value="gestionador">Gestionador</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                                <label for="inputFloat03">Rol del usuario</label>          
+                            </div>
+                            <button type="submit" class="btn btn-success mb-2 col-12">Registrar</button>
+                            <% if(typeof validaciones != 'undefined') { %>
+                                <% validaciones.forEach((validacion) => {  %> 
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong><%= validacion.msg %></strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                <% }) %>
+                            <% } %>
+            
+                            <% if(typeof usuarioExiste != 'undefined') { %>
+                                <% if(usuarioExiste == true) { %>
+                                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                        <strong>Esta cuenta ya existe.</strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                <% } %>
+                            <% } %>
+            
+                            <% if(typeof usuarioCreado != 'undefined') { %>
+                                <% if(usuarioCreado == true) { %>
+                                    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                                        <div id="liveToast" class="toast show fade" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast-header">
+                                            <img src="..." class="rounded me-2" alt="...">
+                                            <strong class="me-auto">Exito.</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                        </div>
+                                        <div class="toast-body">
+                                        Cuenta creada correctamente.
+                                        </div>
+                                    </div>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                        </div>
                     </div>
-                    <% }) %>
-                  <% } %>
-
-                  <% if(typeof usuarioExiste != 'undefined') { %>
-                    <% if(usuarioExiste == true) { %>
-                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                            <strong>Esta cuenta ya existe.</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    <% } %>
-                <% } %>
-
-                <% if(typeof usuarioCreado != 'undefined') { %>
-                    <% if(usuarioCreado == true) { %>
-                        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                            <div id="liveToast" class="toast show fade" role="alert" aria-live="assertive" aria-atomic="true">
-                              <div class="toast-header">
-                                <img src="..." class="rounded me-2" alt="...">
-                                <strong class="me-auto">Exito.</strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body">
-                            Cuenta creada correctamente.
-                            </div>
-                        </div>
-                        </div>
-                    <% } %>
-                <% } %>
-            </form>
+                </form>
+            </div>
         </div>
     </main>
 </body>

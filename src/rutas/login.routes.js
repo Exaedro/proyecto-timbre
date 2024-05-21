@@ -17,7 +17,7 @@ loginRutas.get("/login", (req, res) => {
 	res.render("login");
 });
 
-loginRutas.get("/registro", esAdmin, (req, res) => {
+loginRutas.get("/registro", (req, res) => {
 	res.render("registro");
 });
 
