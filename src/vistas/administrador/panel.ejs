@@ -57,12 +57,64 @@
                         <div class="col-md-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex align-items-center">
+                                    <h6 class="m-0 font-weight-bold text-primary">Horarios diarios</h6>
+                                    <a href="/panel/horarios/crear" class="btn btn-success ml-3">Agregar horario</a>
+                                </div>
+                                <div class="card-body container-fluid">
+                                    <div class="row horarioContainer">
+                                        <% horarios.forEach(horario => { %>
+                                            <% if(horario.repetirDiariamente == true) { %>
+                                                <% if(horario.modo == true) { %>
+                                                    <div class="card border-success col-lg-3 col-md-6">
+                                                        <div class="card-body">
+                                                            <h5 class="fecha">Hora: <%- horario.partes.hora %>:<%- horario.partes.minuto %></h5>
+                                                            <p>Modo: <span class="badge bg-success text-white">Encendido</span></p>
+                                                            <a data-target="#modal<%- horario._id %>" data-toggle="modal" href="#">
+                                                                <i class="bi bi-trash borrar"></i>
+                                                            </a>
+                                                            <a href="#">
+                                                                <i class="bi bi-pencil-square editar"></i>
+                                                            </a>
+                                                        </div>                              
+                                                    </div>
+                                                <% } else { %>
+                                                    <div class="card border-danger col-lg-3 col-md-6">
+                                                        <div class="card-body">
+                                                            <h5 class="fecha"><%- horario.fecha %></h5>
+                                                            <p>Hora inicial: <%- horario.partes.hora %>:<%- horario.partes.minuto %></p>
+                                                            <p>Hora final: <%- horario.parteFinal.hora %>:<%- horario.parteFinal.minuto %></p>
+                                                            <p>Modo: <span class="badge bg-danger text-white">Apagado</span></p>
+                                                            <a data-target="#modal<%- horario._id %>" data-toggle="modal" href="#">
+                                                                <i class="bi bi-trash borrar"></i>
+                                                            </a>
+                                                            <a href="#">
+                                                                <i class="bi bi-pencil-square editar"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                <% } %>
+                                            <% } %>
+                                        <%})%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex align-items-center">
                                     <h6 class="m-0 font-weight-bold text-primary">Horarios</h6>
                                     <a href="/panel/horarios/crear" class="btn btn-success ml-3">Agregar horario</a>
                                 </div>
                                 <div class="card-body container-fluid">
                                     <div class="row horarioContainer">
                                         <% horarios.forEach(horario => { %>
+                                            <% if(horario.repetirDiariamente == true) return %>
+                                            
                                             <% if(horario.modo == true) { %>
                                                 <div class="card border-success col-lg-3 col-md-6">
                                                     <div class="card-body">

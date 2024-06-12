@@ -39,6 +39,17 @@ app.use(express.static(path.join(process.cwd(), 'src/public')))
 app.use('/panel', express.static(path.join(process.cwd(), 'src/public')))
 app.use('/panel/horarios', express.static(path.join(process.cwd(), 'src/public')))
 
+// Server
 app.listen(puerto, () => {
   console.log("Servidor en marcha.");
 });
+
+// Timbre
+import Timbre from "./timbre/timbre.js";
+
+setInterval(async () => {
+  Timbre.comprobar()
+}, 1000)
+
+// Arduino
+// import './arduino/app.js'
