@@ -14,7 +14,8 @@ const horarioSchema = new Schema(
 			hora: { type: String },
 			minuto: { type: String }
 		},
-	modo: { type: Boolean, default: true },
+		modo: { type: Boolean, default: true },
+		repetirDiariamente: { type: Boolean, default: false }
 	},
 	{
 		virtuals: {

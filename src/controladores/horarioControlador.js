@@ -11,7 +11,7 @@ export default class HorarioControlador {
     }
 
     static async crearHorario(req, res) {
-        let { modo, fecha } = req.body
+        let { modo, fecha, diario } = req.body
 
         const dia = fecha.slice(-2)
         const mes = numeroParaMes(fecha.slice(-5, 7))
@@ -23,7 +23,7 @@ export default class HorarioControlador {
             const minuto = hora.slice(-2)
             hora = hora.slice(0, 2)
 
-            await HorarioModelo.crearHorarioActivo(dia, mes, año, hora, minuto, modo)
+            await HorarioModelo.crearHorarioActivo(dia, mes, año, hora, minuto, modo, diario)
         } else {
             let { horaInicial, horaFinal } = req.body
 
@@ -33,7 +33,7 @@ export default class HorarioControlador {
             const minutoFinal = horaFinal.slice(-2)
             horaFinal = horaFinal.slice(0, 2)
 
-            await HorarioModelo.crearHorarioDesactivado(dia, mes, año, horaInicial, horaFinal, minutoInicial, minutoFinal, modo)
+            await HorarioModelo.crearHorarioDesactivado(dia, mes, año, horaInicial, horaFinal, minutoInicial, minutoFinal, modo, diario)
         }
 
         res.redirect('/panel')
